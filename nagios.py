@@ -150,8 +150,7 @@ def inst_nagios_core():
 
 	print ('Fin de l\'installation de nagios-core')
 	print ('Fin de l\'installation de nagios-core', file=old_stdout)
-	clean_folder()
-	close_log('0')
+	inst_nagios_plugin()
 
 def inst_nagios_plugin():
 	#Install required package

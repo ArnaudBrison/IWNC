@@ -1,9 +1,9 @@
 <h1 align="center">IWNC</h1>
 
 <p align="center">
-   <a href="https://docs.python.org/3/" title="Ubuntu"><img src="https://img.shields.io/badge/Ubuntu%20Server-20.04%2B-orange"></a>
-   <a href="https://docs.python.org/3/" title="Python"><img src="https://img.shields.io/badge/Python-3.8%2B-yellow"></a>
-   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/Licence-GNU%203.0-green"></a>
+   <a href="https://ubuntu.com/download/server" title="Ubuntu"><img src="https://img.shields.io/badge/Ubuntu%20Server-20.04%2B-orange?style=plastic&logo=ubuntu"></a>
+   <a href="https://docs.python.org/3/" title="Python"><img src="https://img.shields.io/badge/Python-3.8%2B-yellow?style=plastic&logo=python"></a>
+   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/Licence-GNU%203.0-green?style=plastic"></a>
 </p>
 
 <p align="center">
@@ -14,7 +14,8 @@
   <a href="#Licence">Licence</a>
 </p>
 
-Le but de ce projet est d'installer automatique wordpress et nagios-core. Permets aussi de rajouter une liste personnalisée de sonde à nagios
+Le but de ce projet est d'installer automatiquement wordpress et nagios-core.
+Il permets aussi de rajouter une [liste personnalisée de sonde](#Liste-des-sondes) à nagios
 
 ## Environnement requis
 Pour lancer ce script vous aurais besoin de **Ubuntu Server 20.04+** et **Python 3.8+**
@@ -56,6 +57,16 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 [check_wp_version]: https://exchange.nagios.org/directory/Plugins/CMS-and-Blog-Software/Wordpress/check_wp_version/details
 [check_url_status]: https://exchange.nagios.org/directory/Plugins/Websites%2C-Forms-and-Transactions/check_url_status/details
 [check_mysql]: https://github.com/nagios-plugins/nagios-plugins
+
+## Version des services installés
+
+| Service       | Version                                                     |
+| --------------| ------------------------------------------------------------- |
+| wordpress     | <a href="" title="Wordpress"><img src="https://img.shields.io/badge/verison-5.4.2-blue?style=plastic&logo=wordpress"></a>                                                     |
+| Nagios-core   | <a href="" title="Nagios-Core"><img src="https://img.shields.io/badge/version-4.4.5-brightgreen?style=plastic"></a>                                |
+| Nagios-plugin | <a href="" title="Nagios-Plugin"><img src="https://img.shields.io/badge/version-2.3.3-brightgreen?style=plastic"></a>      |
+
+
 
 ## Auteur
 Arnaud Brison - Openclassroom
