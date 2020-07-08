@@ -17,11 +17,11 @@
 Le but de ce projet est d'installer automatique wordpress et nagios-core. Permets aussi de rajouter une liste personnalisée de sonde à nagios
 
 ## Environnement requis
-Pour lancer ce script vous aurais besoin de Ubuntu Server 20.04+ et Python 3.8+
+Pour lancer ce script vous aurais besoin de **Ubuntu Server 20.04+** et **Python 3.8+**
 
 ## Prérequis
 
-Installer python3-pip pour pouvoir télécharger les modules nécessaires au fonctionnement du script
+Installer **python3-pip** pour pouvoir télécharger les modules nécessaires au fonctionnement du script
 ```
 apt-get install pyhton3-pip
 ```
@@ -34,14 +34,14 @@ python3 -m pip install wget mysql.connector progress selenium
 ## Fonctionnement
 Ce script a plusieurs options en fonction de ce que vous voulez installer
 
--w Installe Wordpress ainsi que sa base de données avec MySQL
--nc Installe nagios-core et lance ensuite l'option -dp
--dp Installe les plugins par défaut de nagios-core
--pp Installe des plugins (regarder la liste ci-dessous) ajouter pour la supervision de wordpress et nagios-core
+* -w Installe Wordpress ainsi que sa base de données avec MySQL
+* -nc Installe nagios-core et lance ensuite l'option -dp
+* -dp Installe les plugins par défaut de nagios-core
+* -pp Installe des plugins (regarder la liste ci-dessous) ajouter pour la supervision de wordpress et nagios-core
 
 ## Liste des sondes
 
-| Nom de la sonde & Lien       | Description                                            |
+| Sonde                 | Description                                                   |
 | --------------------- | ------------------------------------------------------------- |
 | [check_ddos]          | Vérifie si une attaque ddos est  en cours vers le serveur.    |
 | [check_service]       | Vérifie l'état de nagios-core.                                |
