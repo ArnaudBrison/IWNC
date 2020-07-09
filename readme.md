@@ -62,7 +62,7 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
 | Service       | Version                                                     |
 | --------------| ------------------------------------------------------------- |
-| wordpress     | <a href="" title="Wordpress"><img src="https://img.shields.io/badge/verison-5.4.2-blue?style=plastic&logo=wordpress"></a>                                                     |
+| Wordpress     | <a href="" title="Wordpress"><img src="https://img.shields.io/badge/verison-5.4.2-blue?style=plastic&logo=wordpress"></a>                                                     |
 | Nagios-core   | <a href="" title="Nagios-Core"><img src="https://img.shields.io/badge/version-4.4.5-brightgreen?style=plastic"></a>                                |
 | Nagios-plugin | <a href="" title="Nagios-Plugin"><img src="https://img.shields.io/badge/version-2.3.3-brightgreen?style=plastic"></a>      |
 

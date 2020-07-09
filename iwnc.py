@@ -12,15 +12,15 @@ import apt
 import apt.progress
 from progress.bar import ChargingBar
 
+wordmdp = ''
+
 #Function to close the log file
 def close_log(msg_nb):
-	sys.stdout = old_stdout
-	sys.stderr = old_stderr
 	log_file.close()
 	if (msg_nb == '0'):
-		print ('Le script c\'est terminer avec succes\nLes log de ce script sont enregistrer dans le fichier inst.py.log')
+		print ('Le script c\'est terminer avec succes\nLes log de ce script sont enregistrer dans le fichier iwnc.py.log')
 	if (msg_nb == '1'):
-		print ('Une erreur est survenu, pour en savoir plus regarder le fichier de log inst.py.log')
+		print ('Une erreur est survenu, pour en savoir plus regarder le fichier de log iwnc.py.log')
 
 #Function to launch some system cmd with subprocess
 def launch(cmd, msg, err_msg):
@@ -28,13 +28,13 @@ def launch(cmd, msg, err_msg):
 		output = check_output(cmd, stderr=STDOUT, shell=True)
 		return output
 	except CalledProcessError as e:
-		print (err_msg)
-		print ('Status: FAIL:', e.output)
+		print (err_msg, file=log_file)
+		print ('Status: FAIL:', e.output, file=log_file)
 		clean_folder()
 		close_log('1')
 		sys.exit(1)
 	else:
-		print (msg)
+		print (msg, file=log_file)
 
 #Funciton to delette temporary file/folder
 def clean_folder():
@@ -65,47 +65,45 @@ def apt_get(pkg_name_list):
 	cache = apt.cache.Cache()
 	cache.update()
 	cache.open()
-	print ('Telechargement de ', *pkg_name_list, file=old_stdout)
+	print ('Telechargement de ', *pkg_name_list)
 	bar = ChargingBar('Telechargement & Installation', max=len(pkg_name_list) + 1)
 	bar.next()
 	for pkg_name in pkg_name_list:
 		pkg = cache[pkg_name]
 		if pkg.is_installed:
-			print ("\n{pkg_name} est deja installer".format(pkg_name=pkg_name))
+			print ("\n{pkg_name} est deja installer".format(pkg_name=pkg_name), file=log_file)
 			bar.next()
 		else:
 			pkg.mark_install()
 
 			try:
 				cache.commit(install_progress=LogInstallProgress())
-				print ("{pkg_name} c\'est installer".format(pkg_name=pkg_name))
+				print ("{pkg_name} c\'est installer".format(pkg_name=pkg_name), file=log_file)
 				bar.next()
 			except (Exception, arg):
-				print ("l\'installation du packet a echouer [{err}]".format(err=str(arg)))
+				print ("l\'installation du packet a echouer [{err}]".format(err=str(arg)), file=log_file)
 	bar.finish()
 
 #Funciton to wget files
 def wgetfunct(url, dest_path, name):
 	try :
-		sys.stdout = old_stdout
-		print ('Debut du telechargement de ', name,  file=old_stdout)
+		print ('Debut du telechargement de ', name)
 		ssl._create_default_https_context = ssl._create_unverified_context
 		wget.download(url, dest_path)
-		sys.stdout = log_file
 	except:
-		print ('Une erreur est interveneue dans le telechargement de ', name, file=old_stdout)
+		print ('Une erreur est interveneue dans le telechargement de ', name)
 		clean_folder()
 		close_log(msg_nb='1')
 		sys.exit(1)
 	finally:
-		print ('\nFin du telechargement de ', name, file=old_stdout)
+		print ('\nFin du telechargement de ', name)
 
 def file_search(file, chaine):
 	fin = open(file, "rt")
 	i = '0'
 	for ligne in fin:
 		if (chaine in ligne):
-			print ('already defined')
+			print (chaine, ' est deja definie', file=log_file)
 			i = '1'
 			fin.close
 			break
@@ -130,25 +128,22 @@ def add_cmd_nagios(name1, cmd1, name2, cmd2):
 wordpress_tar_path = '/tmp/wordpress.tar.gz'
 
 #Log file cration
-log_file_name = 'inst.py.log'
+log_file_name = 'iwnc.py.log'
 if (path.exists(log_file_name) == False):
 	touch_log_file_cmd = "touch " + log_file_name
 	msg = 'Creation du fichier de log'
 	err_msg = ('Le fichier de log n\'a pas put etre creer')
 	launch(touch_log_file_cmd , msg, err_msg)
-old_stdout = sys.stdout
-old_stderr = sys.stderr
 log_file = open(log_file_name, "w")
 
 #Add geckodriver for selenium lib
 if (path.exists('/usr/local/bin/geckodriver') == False):
 	url = "http://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz"
 	dest_path = "/tmp/"
-	print ('Telechargement de geckodriver')
+	print ('Telechargement de geckodriver', file=log_file)
 	wgetfunct(url, dest_path, 'geckodriver')
-	print ('Fin du telechargement de geckodriver')
+	print ('Fin du telechargement de geckodriver', file=log_file)
 	if (path.exists('/tmp/geckodriver-v0.26.0-linux64.tar.gz') == True):
-		print ("test")
 		untar_gecko = "tar -C /usr/local/bin -zxf /tmp/geckodriver-v0.26.0-linux64.tar.gz"
 		msg = "Decompression de l\'archive geckodriver avec succes"
 		err_msg = "La decompresion de l\'archive geckodriver a echouer"
@@ -173,18 +168,24 @@ def main():
 	try:
 		args = parser.parse_args()
 		print ('Debut du script veuiller patienter')
-		sys.stdout = log_file
-		sys.stderr = log_file
-		if(args.wordpress == True):
+		w = args.wordpress
+		nc = args.nagioscore
+		dp = args.nagiosplugin
+		pp = args.nagiospluginpersonalize
+		if(w == True):
 			wordpress.inst_word()
-		elif(args.nagioscore == True):
+		elif(nc == True):
 			nagios.inst_nagios_core()
-		elif(args.nagiosplugin == True):
+		elif(dp == True):
 			nagios.inst_nagios_plugin()
-		elif(args.nagiospluginpersonalize == True):
+		elif(pp == True):
 			customPluginNagios.add_plugin_nagioscore()
 		else:
 			wordpress.inst_word()
+			nagios.inst_nagios_core()
+			customPluginNagios.add_plugin_nagioscore()
+		clean_folder()
+		close_log('0')
 	except SystemExit:
 		os._exit(0)
 

@@ -1,10 +1,12 @@
-from main import apt_get, wgetfunct, launch, clean_folder, close_log, add_cmd_nagios, file_search
+from iwnc import apt_get, wgetfunct, launch, clean_folder, close_log, add_cmd_nagios, file_search, log_file
+import iwnc
 from os import path
 
 def add_plugin_nagioscore():
 
 	if (path.exists('/usr/local/nagios') == True):
 		#plugin check_ddos
+		print ('Telechargement et installation du plugin check_ddos', file=log_file)
 		if(path.exists('/usr/local/nagios/libexec/check_ddos.py') == False):
 			pkg_name_list = ["net-tools"]
 			apt_get(pkg_name_list)
@@ -12,7 +14,7 @@ def add_plugin_nagioscore():
 			dest_path = '/usr/local/nagios/libexec/'
 			wgetfunct(url, dest_path, 'check_ddos')
 		if(path.exists('/usr/local/nagios/libexec/check_ddos.py') == True):
-			print ('Configuration du plugin check_ddos', file=old_stdout)
+			print ('Configuration du plugin check_ddos')
 			file = '/usr/local/nagios/libexec/check_ddos.py'
 			chaine = '#! /usr/bin/env python3'
 			result = file_search(file, chaine)
@@ -35,15 +37,16 @@ def add_plugin_nagioscore():
 			name2 = name1
 			cmd2 = "check_ddos!300!200"
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
-
+		print ('Fin du telechargement et de l\'installation du plugin check_ddos', file=log_file)
 		#plugin check_service.sh
+		print ('Telechargement et installation du plugin check_service', file=log_file)
 		if(path.exists('/usr/local/nagios/libexec/check_service.sh') == False):
 			url = 'https://raw.githubusercontent.com/jonschipp/nagios-plugins/master/check_service.sh'
 			dest_path = '/usr/local/nagios/libexec/'
 			wgetfunct(url, dest_path, 'check_service')
 
 		if(path.exists('/usr/local/nagios/libexec/check_service.sh') == True):
-			print ('Configuration du plugin check_service', file=old_stdout)
+			print ('Configuration du plugin check_service')
 			chmod_check_service = "chmod +x /usr/local/nagios/libexec/check_service.sh"
 			msg = "Le fichier check_service.sh a bien recus les droit d'execution"
 			err_msg = "Le fichier check_service.sh n\'a pas recus les droit d\'execution"
@@ -54,15 +57,16 @@ def add_plugin_nagioscore():
 			name2 = "check_service_nagios-core"
 			cmd2 = "check_service!linux!nagios"
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
-
+		print ('Fin du telechargement et de l\'installation du plugin check_service', file=log_file)
 		#plugin check_website_speed
+		print ('Telechargement et installation du plugin check_website_speed', file=log_file)
 		if(path.exists('/usr/local/nagios/libexec/check_website_speed.php') == False):
 			url = 'https://exchange.nagios.org/components/com_mtree/attachment.php?link_id=1898&cf_id=24'
 			dest_path = '/usr/local/nagios/libexec/'
 			wgetfunct(url, dest_path, 'check_webiste_speed')
 
 		if(path.exists('/usr/local/nagios/libexec/check_website_speed.php') == True):
-			print ('Configuration du plugin check_website_speed', file=old_stdout)
+			print ('Configuration du plugin check_website_speed')
 			chmod_check_website_speed = "chmod +x /usr/local/nagios/libexec/check_website_speed.php"
 			msg = "Le fichier check_website_speed.php a bien recus les droit d'execution"
 			err_msg = "Le fichier check_website_speed.php n\'a pas recus les droit d\'execution"
@@ -86,15 +90,17 @@ def add_plugin_nagioscore():
 			name2 = name1
 			cmd2 = "check_website_speed!http://127.0.0.1/wordpress/!2!4"
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
+		print ('Fin du telechargement et de l\'installation du plugin check_website_speed', file=log_file)
 
 		#plugin check_wp_version
+		print ('Telechargement et installation du plugin check_wp_version', file=log_file)
 		if(path.exists('/usr/local/nagios/libexec/check_wp_version') == False):
 			url = 'https://exchange.nagios.org/components/com_mtree/attachment.php?link_id=2371&cf_id=24'
 			dest_path = '/usr/local/nagios/libexec/'
 			wgetfunct(url, dest_path, 'check_wp_version')
 
 		if(path.exists('/usr/local/nagios/libexec/check_wp_version') == True):
-			print ('Configuration du plugin check_wp-version', file=old_stdout)
+			print ('Configuration du plugin check_wp-version')
 			chmod_check_wp_version = "chmod +x /usr/local/nagios/libexec/check_wp_version"
 			msg = "Le fichier check_wp_version a bien recus les droit d'execution"
 			err_msg = "Le fichier check_wp_version n\'a pas recus les droit d\'execution"
@@ -105,9 +111,10 @@ def add_plugin_nagioscore():
 			name2 = name1
 			cmd2 = "check_wp_version!/var/www/html/wordpress/"
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
-
+		print ('Fin du telechargement et de l\'installation du plugin check_wp_version', file=log_file)
 		#plugin check_url_status
-		if(path.exists('/usr/local/nagios/libexec/check_url_status*') == False):
+		print ('Telechargement et installation du plugin check_url_status', file=log_file)
+		if(path.exists('/usr/local/nagios/libexec/check_url_status') == False):
 			pkg_name_list = ["libwww-perl"]
 			apt_get(pkg_name_list)
 			url = 'https://exchange.nagios.org/components/com_mtree/attachment.php?link_id=1396&cf_id=24'
@@ -115,7 +122,7 @@ def add_plugin_nagioscore():
 			wgetfunct(url, dest_path, 'check_url_status')
 
 		if(path.exists('/usr/local/nagios/libexec/check_url_status*') == True):
-			print ('Configuration du plugin check_url_status', file=old_stdout)
+			print ('Configuration du plugin check_url_status')
 			mv_to_check_url = "mv /usr/local/nagios/libexec/check_url_status* /usr/local/nagios/libexec/check_url_status"
 			msg = "Le fichier check_url_status_*(num vers) a ete transformer en nom standart check_url_staus"
 			err_msg = ("Le fichier check_url_status_*(num ver) na pas ete transformer en nom standart")
@@ -131,27 +138,29 @@ def add_plugin_nagioscore():
 			name2 = name1
 			cmd2 = "check_url_status!http://127.0.0.1/wordpress/"
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
+		print ('Fin du telechargement et de l\'installation du plugin check_url_status', file=log_file)
 
 		#plugin check_mysql
+		print ('Installation du plugin check_mysql', file=log_file)
 		if(path.exists('/usr/local/nagios/libexec/check_mysql') == True):
-			print ('Configuration du plugin check_mysql', file=old_stdout)
+			print ('Configuration du plugin check_mysql')
 			chmod_check_website_status = "chmod +x /usr/local/nagios/libexec/check_mysql"
 			msg = "Le fichier check_mysql a bien recus les droit d'execution"
 			err_msg = "Le fichier check_mysql n\'a pas recus les droit d\'execution"
 			launch(chmod_check_website_status, msg, err_msg)
 
+			if (iwnc.wordmdp == ''):
+				iwnc.wordmdp = input('Qu\'elle est le mot de passe de votre utilisateur wordpress mysql?:')
 			name1 = "check_mysql"
 			cmd1 = "$USER1$/check_mysql -H $HOSTADDRESS$ -u $ARG1$ -p $ARG2$"
 			name2 = name1
-			cmd2 = "check_mysql!wordpress!Yters3/jfg"
+			cmd2 = "check_mysql!wordpress!" + iwnc.wordmdp
 			add_cmd_nagios(name1, cmd1, name2, cmd2)
-
+		print ('Fin de l\'installation du plugin check_mysql', file=log_file)
 		#reload  nagios
 		systemctl_nagios_cmd = "systemctl restart nagios"
 		msg = ('Redemarage  de nagios avec succes')
 		err_msg = ('Le redemarage de nagios a echouer')
 		launch(systemctl_nagios_cmd , msg, err_msg)
-		print ('Fin de l\'installation des plugin nagios-core personnaliser', file=old_stdout)
+		print ('Fin de l\'installation des plugin nagios-core personnaliser', file=log_file)
 		print ('Fin de l\'installation des plugin nagios-core personnaliser')
-		clean_folder()
-		close_log('0')
