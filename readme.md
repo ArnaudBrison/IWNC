@@ -88,15 +88,15 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
     * inst_word(): lance le script d'installation de wordpress
 
-[nagios.py](./nagios.py)
+* [nagios.py](./nagios.py)
 
     * inst_nagios_core(): lance le script d'installation de nagios-Core
 
     * inst_nagios_plugin(): lance le script d'installation de nagios-core-plugins
 
-[customPluginNagios.py](./customPluginNagios.py)
+* [customPluginNagios.py](./customPluginNagios.py)
 
-    *  add_plugin_nagioscore(): lance le script d'installation des plugin personnaliser de nagios core 
+    * add_plugin_nagioscore(): lance le script d'installation des plugin personnaliser de nagios core
 
 ## Auteur
 Arnaud Brison - Openclassroom
