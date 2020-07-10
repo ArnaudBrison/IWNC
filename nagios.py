@@ -3,9 +3,10 @@ import pwd
 import grp
 from os import path
 from progress.bar import Bar
-
+from termcolor import colored
 def inst_nagios_core():
 	#Install required package
+	print (colored('Debut du script d\'installation de nagios-core', 'blue'))
 	pkg_name_list = ["apache2", "php", "php-gd",
 	"php-imap", "php-curl", "libxml-libxml-perl",
 	"libnet-snmp-perl", "libperl-dev", "libnumber-format-perl",
@@ -165,12 +166,13 @@ def inst_nagios_core():
 	print ('Fin de la configuration d\'apache')
 
 	print ('Fin de l\'installation de nagios-core', file=log_file)
-	print ('Fin de l\'installation de nagios-core')
-	print ('Utilisateur pour connexion a l\'interface web nagios-core: nagiosadmin', file=log_file)
-	print ('Mot de passe pour la connexion a l\'interface web nagios-core: ', nagiosmdp , file=log_file)
+	print (colored('Fin de l\'installation de nagios-core', 'green'))
+	print (colored('Utilisateur pour connexion a l\'interface web nagios-core: nagiosadmin', 'yellow'), file=log_file)
+	print (colored('Mot de passe pour la connexion a l\'interface web nagios-core: ' + nagiosmdp, 'red'), file=log_file)
 	inst_nagios_plugin()
 
 def inst_nagios_plugin():
+	print (colored('Debut du script d\'installation de nagios-core-plugin', 'blue'))
 	print ('Telechargement des packet requis pour nagios-core-plugin')
 	#Install required package
 	pkg_name_list = ["automake", "libmcrypt-dev", "libssl-dev", "bc", "gawk", "dc", "build-essential", "snmp", "gettext", "default-libmysqlclient-dev"]
@@ -229,5 +231,5 @@ def inst_nagios_plugin():
 	bar.next()
 	bar.finish()
 	print ('Fin de l\'installation de nagios-core-plugin', file=log_file)
-	print ('Fin de l\'installation de nagios-core-plugin')
-	print ('Les identifiant de connexion a l\'interface web de nagios-core est dans le fichier de log')
+	print (colored('Fin de l\'installation de nagios-core-plugin', 'green'))
+	print (colored('Les identifiant de connexion a l\'interface web de nagios-core est dans le fichier de log', 'green'))

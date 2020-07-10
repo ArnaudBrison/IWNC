@@ -1,12 +1,16 @@
-from iwnc import apt_get, wgetfunct, launch, clean_folder, close_log, log_file, wordmdp
+import iwnc
+from iwnc import apt_get, wgetfunct, launch, clean_folder, close_log, log_file
 from os import path
 import mysql.connector
 from mysql.connector import Error
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from progress.bar import Bar
+from termcolor import colored
+
 def inst_word():
 	#######INSTALLATION########
+	print (colored('Debut de l\'installation d\'apache, la base de donnee mysql et wordpress', 'blue'))
 	print ('Debut de l\'installation d\'apache, la base de donnee mysql et wordpress', file=log_file)
 
 	#Install package needed for apache
@@ -41,7 +45,7 @@ def inst_word():
 	elif (mysqlinst == 'o'):
 		mysqlmdp = input("Veuiller rentrer votre mot de passe pour l' utilisateur root de mysql: ")
 		print ('Debut de la configuration de MYSQL')
-	wordmdp = input ("Qu'elle mot de passe souhaiter vous mettre a l\'utilisateur wordpress pour mysql?:")
+	iwnc.wordmdp = input ("Qu'elle mot de passe souhaiter vous mettre a l\'utilisateur wordpress pour mysql?:")
 
 	#Information mysql connection
 	ip_address = "localhost";
@@ -54,7 +58,7 @@ def inst_word():
 			cursor = connection.cursor()
 			cursor.execute("CREATE DATABASE wordpress;")
 			print ("Creation de la base de donnee wordpress", file=log_file)
-			cursor.execute("CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY \'" + wordmdp + "\';")
+			cursor.execute("CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY \'" + iwnc.wordmdp + "\';")
 			print ("Creation de l' utilisateur wordpress", file=log_file)
 			cursor.execute("GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';")
 			cursor.execute("FLUSH PRIVILEGES;")
@@ -82,7 +86,7 @@ def inst_word():
 	data = fin.read()
 	data = data.replace('database_name_here', 'wordpress')
 	data = data.replace('username_here', 'wordpress')
-	data = data.replace('password_here', wordmdp)
+	data = data.replace('password_here', iwnc.wordmdp)
 	fin.close()
 	fin = open(wordpress_path + "wp-config.php", "wt")
 	fin.write(data)
@@ -112,11 +116,11 @@ def inst_word():
 	bar.next()
 	bar.finish()
 
-	print ('Fin de la configuration et de l\'installation de wordpress les identifiant sont lister a la fin du fichier de log')
+	print (colored('Fin de la configuration et de l\'installation de wordpress les identifiant sont lister a la fin du fichier de log', 'green'))
 	print ('Fin de la configuration et de l\'installation de wordpress', file=log_file)
 	if (mysqlinst == 'n'):
-		print ('Mot de passe root mysql: ', mysqlmdp, file=log_file)
-	print ('Mot de passe wordpress mysql:',  wordmdp, file=log_file)
-	print ('Identifiant site wordpress: admin', file=log_file)
-	print ('Mot de passe du site wordpress:', passw, file=log_file)
+		print (colored('Mot de passe root mysql: ' + mysqlmdp, 'yellow'), file=log_file)
+	print (colored('Mot de passe wordpress mysql:' + iwnc.wordmdp, 'yellow'), file=log_file)
+	print (colored('Identifiant site wordpress: admin', 'yellow'), file=log_file)
+	print (colored('Mot de passe du site wordpress:' + passw, 'yellow'), file=log_file)
 	#####FIN INSTALLATION######

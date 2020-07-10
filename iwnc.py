@@ -11,6 +11,7 @@ import ssl
 import apt
 import apt.progress
 from progress.bar import ChargingBar
+from termcolor import colored
 
 wordmdp = ''
 
@@ -18,9 +19,9 @@ wordmdp = ''
 def close_log(msg_nb):
 	log_file.close()
 	if (msg_nb == '0'):
-		print ('Le script c\'est terminer avec succes\nLes log de ce script sont enregistrer dans le fichier iwnc.py.log')
+		print (colored('Le script c\'est terminer avec succes\nLes log de ce script sont enregistrer dans le fichier iwnc.py.log', 'yellow'))
 	if (msg_nb == '1'):
-		print ('Une erreur est survenu, pour en savoir plus regarder le fichier de log iwnc.py.log')
+		print (colored('Une erreur est survenu, pour en savoir plus regarder le fichier de log iwnc.py.log', 'red'))
 
 #Function to launch some system cmd with subprocess
 def launch(cmd, msg, err_msg):
@@ -28,8 +29,9 @@ def launch(cmd, msg, err_msg):
 		output = check_output(cmd, stderr=STDOUT, shell=True)
 		return output
 	except CalledProcessError as e:
-		print (err_msg, file=log_file)
-		print ('Status: FAIL:', e.output, file=log_file)
+		print (colored(err_msg, 'red'), file=log_file)
+		print (colored(err_msg, 'red'))
+		print (colored('Status: FAIL:' + e.output, 'red'), file=log_file)
 		clean_folder()
 		close_log('1')
 		sys.exit(1)
@@ -81,7 +83,7 @@ def apt_get(pkg_name_list):
 				print ("{pkg_name} c\'est installer".format(pkg_name=pkg_name), file=log_file)
 				bar.next()
 			except (Exception, arg):
-				print ("l\'installation du packet a echouer [{err}]".format(err=str(arg)), file=log_file)
+				print (colored("l\'installation du packet a echouer [{err}]".format(err=str(arg)), "red"), file=log_file)
 	bar.finish()
 
 #Funciton to wget files
@@ -91,7 +93,7 @@ def wgetfunct(url, dest_path, name):
 		ssl._create_default_https_context = ssl._create_unverified_context
 		wget.download(url, dest_path)
 	except:
-		print ('Une erreur est interveneue dans le telechargement de ', name)
+		print (colored('Une erreur est interveneue dans le telechargement de ' + name, 'red'))
 		clean_folder()
 		close_log(msg_nb='1')
 		sys.exit(1)
@@ -174,11 +176,11 @@ def main():
 		pp = args.nagiospluginpersonalize
 		if(w == True):
 			wordpress.inst_word()
-		elif(nc == True):
+		if(nc == True):
 			nagios.inst_nagios_core()
 		elif(dp == True):
 			nagios.inst_nagios_plugin()
-		elif(pp == True):
+		if(pp == True):
 			customPluginNagios.add_plugin_nagioscore()
 		else:
 			wordpress.inst_word()

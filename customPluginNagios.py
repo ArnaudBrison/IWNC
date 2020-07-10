@@ -1,9 +1,10 @@
 from iwnc import apt_get, wgetfunct, launch, clean_folder, close_log, add_cmd_nagios, file_search, log_file
 import iwnc
 from os import path
+from termcolor import colored
 
 def add_plugin_nagioscore():
-
+	print (colored('Debut du script d\'installation des plugin personaliser de nagios-core', 'blue'))
 	if (path.exists('/usr/local/nagios') == True):
 		#plugin check_ddos
 		print ('Telechargement et installation du plugin check_ddos', file=log_file)
@@ -163,4 +164,4 @@ def add_plugin_nagioscore():
 		err_msg = ('Le redemarage de nagios a echouer')
 		launch(systemctl_nagios_cmd , msg, err_msg)
 		print ('Fin de l\'installation des plugin nagios-core personnaliser', file=log_file)
-		print ('Fin de l\'installation des plugin nagios-core personnaliser')
+		print (colored('Fin de l\'installation des plugin nagios-core personnaliser', 'green'))

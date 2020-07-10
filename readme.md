@@ -70,17 +70,17 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
 * [iwnc.py](./iwnc.py)
 
-    * close_log(msg_nb): ferme le fichier de log avec un message d'erreur ou de succes en fonction de la variable "msg_nb"
+    * close_log(msg_nb): ferme le fichier de log avec un message d'erreur ou de succès en fonction de la variable "msg_nb"
 
-    * launch(cmd, msg, err_msg): lance une commande system avec subprocess et print "msg" en cas de succes et "err_msg" en cas d'erreur
+    * launch(cmd, msg, err_msg): lance une commande system avec subprocess et print "msg" en cas de succès et "err_msg" en cas d'erreur
 
-    * clean_folder(): nettoie les potentiel fichier temporaire
+    * clean_folder(): nettoie les potentiels fichier temporaire
 
-    * apt_get(pkg_name_list): utilise apt pour telecgarger et installer la liste de paquet "pkg_name_list"
+    * apt_get(pkg_name_list): utilise apt pour télécharger et installer la liste de paquet "pkg_name_list"
 
-    * wgetfunct(url, dest_path, name): utilise wget pour telecharger "url" vers "dest_path" et qui as pour nom "name"
+    * wgetfunct(url, dest_path, name): utilise wget pour télécharger "url" vers "dest_path" et qui a pour nom "name"
 
-    * file_search(file, chaine): permet de chercher si un plugin de nagios "chaine" est deja definie dans le fichier de configuration "file"
+    * file_search(file, chaine): permet de chercher si un plugin de nagios "chaine" est déjà défini dans le fichier de configuration "file"
 
     * add_cmd_nagios(name1, cmd1, name2, cmd2): ajoute dans le fichier command.cfg le plugin "name1" avec pour commande "cmd1" et dans le fichier localhost.cfg ajoute le plugin "name2 avec pour commande "cmd2"
 
