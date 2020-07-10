@@ -29,7 +29,7 @@ apt-get install pyhton3-pip
 
 Installer les modules nécessaires au fonctionnement du script
 ```
-python3 -m pip install wget mysql.connector progress selenium
+python3 -m pip install wget mysql.connector progress selenium termcolor
 ```
 
 ## Fonctionnement
@@ -66,7 +66,37 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 | Nagios-core   | <a href="" title="Nagios-Core"><img src="https://img.shields.io/badge/version-4.4.5-brightgreen?style=plastic"></a>                                |
 | Nagios-plugin | <a href="" title="Nagios-Plugin"><img src="https://img.shields.io/badge/version-2.3.3-brightgreen?style=plastic"></a>      |
 
+## Liste des fonctions
 
+* [iwnc.py](./iwnc.py)
+
+    * close_log(msg_nb): ferme le fichier de log avec un message d'erreur ou de succes en fonction de la variable "msg_nb"
+
+    * launch(cmd, msg, err_msg): lance une commande system avec subprocess et print "msg" en cas de succes et "err_msg" en cas d'erreur
+
+    * clean_folder(): nettoie les potentiel fichier temporaire
+
+    * apt_get(pkg_name_list): utilise apt pour telecgarger et installer la liste de paquet "pkg_name_list"
+
+    * wgetfunct(url, dest_path, name): utilise wget pour telecharger "url" vers "dest_path" et qui as pour nom "name"
+
+    * file_search(file, chaine): permet de chercher si un plugin de nagios "chaine" est deja definie dans le fichier de configuration "file"
+
+    * add_cmd_nagios(name1, cmd1, name2, cmd2): ajoute dans le fichier command.cfg le plugin "name1" avec pour commande "cmd1" et dans le fichier localhost.cfg ajoute le plugin "name2 avec pour commande "cmd2"
+
+* [wordpress.py](./wordpress.py)
+
+    * inst_word(): lance le script d'installation de wordpress
+
+[nagios.py](./nagios.py)
+
+    * inst_nagios_core(): lance le script d'installation de nagios-Core
+
+    * inst_nagios_plugin(): lance le script d'installation de nagios-core-plugins
+
+[customPluginNagios.py](./customPluginNagios.py)
+
+    *  add_plugin_nagioscore(): lance le script d'installation des plugin personnaliser de nagios core 
 
 ## Auteur
 Arnaud Brison - Openclassroom
