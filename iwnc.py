@@ -126,6 +126,26 @@ def add_cmd_nagios(name1, cmd1, name2, cmd2):
 		fin.write("\n\ndefine service {\n\tuse local-service\n\thost_name localhost\n\tservice_description " + name2 + "\n\tcheck_command " + cmd2 + "\n}")
 		fin.close
 
+#Add geckodriver for selenium lib
+def get_geckodriver():
+	if (path.exists('/usr/local/bin/geckodriver') == False):
+		url = "http://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz"
+		dest_path = "/tmp/"
+		print ('Telechargement de geckodriver', file=log_file)
+		wgetfunct(url, dest_path, 'geckodriver')
+		print ('Fin du telechargement de geckodriver', file=log_file)
+		if (path.exists('/tmp/geckodriver-v0.26.0-linux64.tar.gz') == True):
+			untar_gecko = "tar -C /usr/local/bin -zxf /tmp/geckodriver-v0.26.0-linux64.tar.gz"
+			msg = "Decompression de l\'archive geckodriver avec succes"
+			err_msg = "La decompresion de l\'archive geckodriver a echouer"
+			launch(untar_gecko, msg, err_msg)
+
+		if (path.exists('/usr/local/bin/geckodriver') == True):
+			chmod_gecko = "chmod +x /usr/local/bin/geckodriver"
+			msg = "Le fichier geckodriver a bien recus les droit d'execution"
+			err_msg = "Le fichier geckodriver n\'a pas recus les droit d\'execution"
+			launch(chmod_gecko, msg, err_msg)
+
 #Global variables
 wordpress_tar_path = '/tmp/wordpress.tar.gz'
 
@@ -138,24 +158,6 @@ if (path.exists(log_file_name) == False):
 	launch(touch_log_file_cmd , msg, err_msg)
 log_file = open(log_file_name, "w")
 
-#Add geckodriver for selenium lib
-if (path.exists('/usr/local/bin/geckodriver') == False):
-	url = "http://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz"
-	dest_path = "/tmp/"
-	print ('Telechargement de geckodriver', file=log_file)
-	wgetfunct(url, dest_path, 'geckodriver')
-	print ('Fin du telechargement de geckodriver', file=log_file)
-	if (path.exists('/tmp/geckodriver-v0.26.0-linux64.tar.gz') == True):
-		untar_gecko = "tar -C /usr/local/bin -zxf /tmp/geckodriver-v0.26.0-linux64.tar.gz"
-		msg = "Decompression de l\'archive geckodriver avec succes"
-		err_msg = "La decompresion de l\'archive geckodriver a echouer"
-		launch(untar_gecko, msg, err_msg)
-
-	if (path.exists('/usr/local/bin/geckodriver') == True):
-		chmod_gecko = "chmod +x /usr/local/bin/geckodriver"
-		msg = "Le fichier geckodriver a bien recus les droit d'execution"
-		err_msg = "Le fichier geckodriver n\'a pas recus les droit d\'execution"
-		launch(chmod_gecko, msg, err_msg)
 #Import secondary files
 import wordpress
 import nagios
@@ -175,6 +177,7 @@ def main():
 		dp = args.nagiosplugin
 		pp = args.nagiospluginpersonalize
 		if(w == True):
+			get_geckodriver()
 			wordpress.inst_word()
 		if(nc == True):
 			nagios.inst_nagios_core()

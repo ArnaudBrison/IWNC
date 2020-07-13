@@ -84,6 +84,8 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
     * add_cmd_nagios(name1, cmd1, name2, cmd2): ajoute dans le fichier command.cfg le plugin "name1" avec pour commande "cmd1" et dans le fichier localhost.cfg ajoute le plugin "name2 avec pour commande "cmd2"
 
+    * get_geckodriver(): permets de télécharger geckodriver pour le bon fonctionnement de selenium 
+
 * [wordpress.py](./wordpress.py)
 
     * inst_word(): lance le script d'installation de wordpress
