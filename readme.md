@@ -15,10 +15,10 @@
 </p>
 
 Le but de ce projet est d'installer automatiquement wordpress et nagios-core.
-Il permets aussi de rajouter une [liste personnalisée de sonde](#Liste-des-sondes) à nagios
+Il permet aussi de rajouter une [liste personnalisée de sondes](#Liste-des-sondes) à nagios
 
 ## Environnement requis
-Pour lancer ce script vous aurais besoin de **Ubuntu Server 20.04+** et **Python 3.8+**
+Pour lancer ce script vous aurez besoin de **Ubuntu Server 20.04+** et **Python 3.8+**
 
 ## Prérequis
 
@@ -33,6 +33,11 @@ python3 -m pip install wget mysql.connector progress selenium termcolor
 ```
 
 ## Fonctionnement
+
+```
+sudo ./iwnc [option]
+```
+
 Ce script a plusieurs options en fonction de ce que vous voulez installer
 
 * -w Installe Wordpress ainsi que sa base de données avec MySQL
@@ -74,9 +79,9 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
     * launch(cmd, msg, err_msg): lance une commande system avec subprocess et print "msg" en cas de succès et "err_msg" en cas d'erreur
 
-    * clean_folder(): nettoie les potentiels fichier temporaire
+    * clean_folder(): nettoie les potentiels fichiers temporaires
 
-    * apt_get(pkg_name_list): utilise apt pour télécharger et installer la liste de paquet "pkg_name_list"
+    * apt_get(pkg_name_list): utilise apt pour télécharger et installer la liste de paquets "pkg_name_list"
 
     * wgetfunct(url, dest_path, name): utilise wget pour télécharger "url" vers "dest_path" et qui a pour nom "name"
 
@@ -84,7 +89,7 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
     * add_cmd_nagios(name1, cmd1, name2, cmd2): ajoute dans le fichier command.cfg le plugin "name1" avec pour commande "cmd1" et dans le fichier localhost.cfg ajoute le plugin "name2 avec pour commande "cmd2"
 
-    * get_geckodriver(): permets de télécharger geckodriver pour le bon fonctionnement de selenium 
+    * get_geckodriver(): permet de télécharger geckodriver pour le bon fonctionnement de selenium
 
 * [wordpress.py](./wordpress.py)
 
@@ -98,7 +103,7 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
 * [customPluginNagios.py](./customPluginNagios.py)
 
-    * add_plugin_nagioscore(): lance le script d'installation des plugin personnaliser de nagios core
+    * add_plugin_nagioscore(): lance le script d'installation des plugins personnalisés de nagios core
 
 ## Auteur
 Arnaud Brison - Openclassroom
