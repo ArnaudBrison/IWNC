@@ -42,7 +42,7 @@ Ce script a plusieurs options en fonction de ce que vous voulez installer
 
 * -w Installe Wordpress ainsi que sa base de données avec MySQL
 * -nc Installe nagios-core et lance ensuite l'option -dp
-* -dp Installe les plugins par défaut de nagios-core
+* -dp Installe les plugins officiel de nagios-core
 * -pp Installe des plugins (regarder la liste ci-dessous) ajouter pour la supervision de wordpress et nagios-core
 
 ## Liste des sondes
